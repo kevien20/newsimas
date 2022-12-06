@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 Route::apiResource('/pegawai', App\Http\Controllers\Api\Master\PegawaiController::class);
 Route::apiResource('/ttdbalai', App\Http\Controllers\Api\Master\TtdbalaiController::class);
 Route::apiResource('/ppk', App\Http\Controllers\Api\Master\PpkController::class);
-Route::apiResource('/sutug', App\Http\Controllers\Api\Proses\SurattugasController::class);
+Route::apiResource('/sutug', App\Http\Controllers\Api\Proses\Surattugas\SurattugasController::class);
+Route::apiResource('/sutugdetail', App\Http\Controllers\Api\Proses\Surattugas\SurattugasdetailController::class);
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 
 /**
