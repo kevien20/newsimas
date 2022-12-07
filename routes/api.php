@@ -10,7 +10,12 @@ Route::apiResource('/ttdbalai', App\Http\Controllers\Api\Master\TtdbalaiControll
 Route::apiResource('/ppk', App\Http\Controllers\Api\Master\PpkController::class);
 Route::apiResource('/sutug', App\Http\Controllers\Api\Proses\Surattugas\SurattugasController::class);
 Route::apiResource('/sutugdetail', App\Http\Controllers\Api\Proses\Surattugas\SurattugasdetailController::class);
+Route::apiResource('/sukel', App\Http\Controllers\Api\Proses\Suratkeluar\SuratkeluarController::class);
+
+
+
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
+
 
 /**
  * route "/login"
