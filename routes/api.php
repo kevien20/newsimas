@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Master\PegawaiController;
+use App\Http\Controllers\Api\Master\TtdbalaiController;
 use App\Http\Controllers\Api\AuthController;
 
 
@@ -17,6 +18,7 @@ Route::put("/pegawai/{pegawai}", [PegawaiController::class, "update"])->middlewa
 Route::delete("/pegawai/{pegawai}", [PegawaiController::class, "destroy"])->middleware('auth:sanctum');
 
 //route ttdbalai
+Route::get("/ttdbalai", [TtdbalaiController::class, "index"])->middleware('auth:sanctum');
 Route::get("/ttdbalai", [App\Http\Controllers\Api\Master\TtdbalaiController::class, "index"]);
 Route::post("/ttdbalai", [App\Http\Controllers\Api\Master\TtdbalaiController::class, "store"]);
 Route::get("/ttdbalai/{ttdbalai}", [App\Http\Controllers\Api\Master\TtdbalaiController::class, "show"]);
@@ -57,3 +59,4 @@ Route::delete("/sukel/{sukel}", [App\Http\Controllers\Api\Proses\Suratkeluar\Sur
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::post('/auth/logoutall', [AuthController::class, 'logoutall']);

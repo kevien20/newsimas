@@ -101,9 +101,21 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    public function logout()
-{
-    Auth::logout();
-    return response()->json(['message' => 'Logged Out'], 200);
-}
+    public function logout(Request $request){
+        Auth::attempt([
+            'email'=>$request->email,
+            'password'=>$request->password
+        ]);
+        auth('sanctum')->user()->currentAccessToken()->delete();
+        return response(['message'=>'Successfully Logging out']);
+    }
+    public function logoutall(Request $request){
+        Auth::attempt([
+            'email'=>$request->email,
+            'password'=>$request->password
+        ]);
+        auth('sanctum')->user()->tokens()->delete();
+        return response(['message'=>'Successfully Logging out All Device']);
+    }
+   
 }
