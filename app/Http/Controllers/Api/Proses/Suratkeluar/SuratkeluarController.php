@@ -19,7 +19,7 @@ class SuratkeluarController extends Controller
     public function index()
     {
         //get posts
-        $sukel = Suratkeluar::latest()->paginate(5);
+        $sukel = Suratkeluar::latest()->get();
 
         //return collection of posts as a resource
         return new PostResource(true, 'List Data Posts', $sukel);

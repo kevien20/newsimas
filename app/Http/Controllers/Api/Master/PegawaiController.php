@@ -18,15 +18,20 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        //get posts
-        $pegawai = Pegawai::latest()->paginate(5);
+       
+            $pegawai = Pegawai::latest()->get();
 
-        //return collection of posts as a resource
-        return new PostResource(true, 'List Data Posts', $pegawai);
+            //return collection of posts as a resource
+            return new PostResource(true, 'List Data Posts', $pegawai);
+      
+       
+        
     }
+
+    
     public function show(Pegawai $pegawai)
     {
-      
+       
         //return single post as a resource
         return new PostResource(true, 'Data Post Ditemukan!', $pegawai);
     }
@@ -49,6 +54,7 @@ class PegawaiController extends Controller
 
         //check if validation fails
         if ($validator->fails()) {
+         
             return response()->json($validator->errors(), 422);
         }
 

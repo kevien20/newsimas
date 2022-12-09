@@ -19,7 +19,7 @@ class SurattugasController extends Controller
     public function index()
     {
         //get posts
-        $sutug = Surattugas::latest()->paginate(5);
+        $sutug = Surattugas::latest()->get();
 
         //return collection of posts as a resource
         return new PostResource(true, 'List Data Posts', $sutug);

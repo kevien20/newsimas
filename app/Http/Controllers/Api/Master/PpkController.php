@@ -19,7 +19,7 @@ class PpkController extends Controller
     public function index()
     {
         //get posts
-        $ppk = Ppk::latest()->paginate(5);
+        $ppk = Ppk::latest()->get();
 
         //return collection of posts as a resource
         return new PostResource(true, 'List Data Posts', $ppk);
