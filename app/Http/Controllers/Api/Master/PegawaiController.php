@@ -18,7 +18,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-       
+      
             $pegawai = Pegawai::latest()->get();
 
             //return collection of posts as a resource

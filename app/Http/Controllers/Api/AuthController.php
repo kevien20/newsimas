@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 class AuthController extends Controller
 {
     /**
@@ -23,8 +23,11 @@ class AuthController extends Controller
             $validateUser = Validator::make($request->all(), 
             [
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required'
+                //'email' => 'required|email|unique:users,email',
+                'username' => 'required|unique:users',
+                'password' => 'required|min:8',
+                'password_confirmation' => 'required_with:password|same:password|min:8'
+               
             ]);
 
             if($validateUser->fails()){
@@ -37,8 +40,10 @@ class AuthController extends Controller
 
             $user = User::create([
                 'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'level' => $request->level
+                
             ]);
 
             return response()->json([
@@ -60,13 +65,16 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
+
+    
     public function loginUser(Request $request)
     {
         try {
             $validateUser = Validator::make($request->all(), 
             [
-                'email' => 'required|email',
+                'username' => 'required',
                 'password' => 'required'
+              
             ]);
 
             if($validateUser->fails()){
@@ -77,14 +85,14 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            if(!Auth::attempt($request->only(['email', 'password']))){
+            if(!Auth::attempt($request->only(['username', 'password']))){
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
+                    'message' => 'username & Password does not match with our record.',
                 ], 401);
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('username', $request->username)->first();
 
             return response()->json([
                 'status' => true,
@@ -103,16 +111,18 @@ class AuthController extends Controller
     }
     public function logout(Request $request){
         Auth::attempt([
-            'email'=>$request->email,
+            'username'=>$request->username,
             'password'=>$request->password
+           
         ]);
         auth('sanctum')->user()->currentAccessToken()->delete();
         return response(['message'=>'Successfully Logging out']);
     }
     public function logoutall(Request $request){
         Auth::attempt([
-            'email'=>$request->email,
+            'username'=>$request->username,
             'password'=>$request->password
+           
         ]);
         auth('sanctum')->user()->tokens()->delete();
         return response(['message'=>'Successfully Logging out All Device']);
