@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Proses;
+namespace App\Http\Controllers\Api\Proses\Surattugas;
 
 use App\Models\Surattugas;
 use Illuminate\Http\Request;
