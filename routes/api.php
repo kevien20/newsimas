@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Master\PegawaiController;
 use App\Http\Controllers\Api\Master\TtdbalaiController;
 use App\Http\Controllers\Api\Master\PpkController;
+use App\Http\Controllers\Api\Proses\Surattugas\SurattugasJoin;
 use App\Http\Controllers\Api\Proses\Surattugas\SurattugasController;
 use App\Http\Controllers\Api\Proses\Surattugas\SurattugasdetailController;
 use App\Http\Controllers\Api\Proses\Suratkeluar\SuratkeluarController;
@@ -35,8 +36,6 @@ Route::get("/ppk/{ppk}", [PpkController::class, "show"])->middleware('auth:sanct
 Route::put("/ppk/{ppk}", [PpkController::class, "update"])->middleware('auth:sanctum');
 Route::delete("/ppk/{ppk}", [PpkController::class, "destroy"])->middleware('auth:sanctum');
 
-
-
 //route surat tugas
 Route::get("/sutug", [SurattugasController::class, "index"])->middleware('auth:sanctum');
 Route::post("/sutug", [SurattugasController::class, "store"])->middleware('auth:sanctum');
@@ -51,6 +50,9 @@ Route::get("/sutugdetail/{sutugdetail}", [SurattugasdetailController::class, "sh
 Route::put("/sutugdetail/{sutugdetail}", [SurattugasdetailController::class, "update"])->middleware('auth:sanctum');
 Route::delete("/sutugdetail/{sutugdetail}", [SurattugasdetailController::class, "destroy"])->middleware('auth:sanctum');
 
+//route surat tugas join
+Route::get("/sutugjoin", [SurattugasJoin::class, "index"])->middleware('auth:sanctum');
+Route::get("/sutugjoin/{sutugjoin}", [SurattugasJoin::class, "show"])->middleware('auth:sanctum');
 
 //route surat keluar
 Route::get("/sukel", [SuratkeluarController::class, "index"])->middleware('auth:sanctum');
@@ -65,3 +67,15 @@ Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
 Route::post('/auth/logout', [AuthController::class, 'logout']);
 Route::post('/auth/logoutall', [AuthController::class, 'logoutall']);
+//Route::get('/auth/profile', function(Request $request) {
+    //return auth('sanctum')->user();
+   
+//});
+//Route::middleware('auth:sanctum')->get('/auth/profile', function (AuthController $request) {
+    //return $request->user();
+//});
+//Protecting Routes
+
+    Route::get('/auth/profile', function(Request $request) {
+        return  auth('sanctum')->user();
+    });
